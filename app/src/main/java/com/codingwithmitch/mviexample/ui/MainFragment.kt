@@ -7,6 +7,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 
 import com.codingwithmitch.mviexample.R
@@ -14,6 +15,7 @@ import com.codingwithmitch.mviexample.model.User
 import com.codingwithmitch.mviexample.ui.state.MainViewState
 import com.codingwithmitch.mviexample.ui.state.MainStateEvent
 import com.codingwithmitch.mviexample.util.DataState
+import com.codingwithmitch.mviexample.util.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -22,6 +24,8 @@ class MainFragment : Fragment() {
     lateinit var viewModel: MainViewModel
 
     lateinit var dataStateHandler: DataStateHandler
+
+    lateinit var mainRecyclerAdapter: MainRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,8 +44,8 @@ class MainFragment : Fragment() {
         }?: throw Exception("Invalid Activity")
 
         subscribeObservers()
+        initRecyclerView()
     }
-
 
     fun subscribeObservers(){
         viewModel.dataState.observe(this, Observer { dataState ->
@@ -73,14 +77,23 @@ class MainFragment : Fragment() {
 
     fun handleViewState(viewState: MainViewState){
         println("DEBUG: ViewState: ${viewState}")
-        viewState.blogPosts?.let{
+        viewState.blogPosts?.let{ blogPosts ->
             // Set recyclerview data
+            mainRecyclerAdapter.submitList(blogPosts)
 
         }
         viewState.user?.let{ user ->
             // Set user data
             setUserProperties(user)
         }
+    }
+
+    private fun initRecyclerView(){
+        recycler_view.layoutManager = LinearLayoutManager(activity)
+        val topSpacingDecorator = TopSpacingItemDecoration(30)
+        recycler_view.addItemDecoration(topSpacingDecorator)
+        mainRecyclerAdapter = MainRecyclerAdapter()
+        recycler_view.adapter = mainRecyclerAdapter
     }
 
     fun setUserProperties(user: User){

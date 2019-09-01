@@ -6,6 +6,10 @@ import com.google.gson.annotations.SerializedName
 data class BlogPost(
 
     @Expose
+    @SerializedName("pk")
+    val pk: Int? = null,
+
+    @Expose
     @SerializedName("title")
     val title: String? = null,
 
