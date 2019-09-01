@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_get_user"
+        android:title="get user"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/action_get_blogs"
+        android:title="get blogs"
+        app:showAsAction="never"
+        />
+
+
+</menu>

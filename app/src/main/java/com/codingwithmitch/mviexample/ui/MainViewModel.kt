@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.codingwithmitch.mviexample.model.BlogPost
+import com.codingwithmitch.mviexample.model.User
 import com.codingwithmitch.mviexample.repository.Repository
 import com.codingwithmitch.mviexample.ui.StateEvent.*
 import com.codingwithmitch.mviexample.util.AbsentLiveData
@@ -28,8 +29,12 @@ class MainViewModel : ViewModel(){
     fun handleStateEvent(stateEvent: StateEvent): LiveData<DataState<MainViewState>>{
         when(stateEvent){
 
-            is GetBlogPosts -> {
+            is GetBlogPostsEvent -> {
                 return Repository.getBlogPosts()
+            }
+
+            is GetUserEvent -> {
+                return Repository.getUser()
             }
 
             is None ->{
@@ -47,6 +52,12 @@ class MainViewModel : ViewModel(){
     fun setBlogListData(blogPosts: List<BlogPost>){
         val update = getCurrentViewStateOrNew()
         update.blogPosts = blogPosts
+        _viewState.value = update
+    }
+
+    fun setUser(user: User){
+        val update = getCurrentViewStateOrNew()
+        update.user = user
         _viewState.value = update
     }
 

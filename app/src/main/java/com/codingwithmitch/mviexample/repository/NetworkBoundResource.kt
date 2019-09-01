@@ -3,6 +3,13 @@ package com.codingwithmitch.mviexample.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.codingwithmitch.mviexample.util.*
+import com.codingwithmitch.mviexample.util.Constants.Companion.TESTING_NETWORK_DELAY
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 abstract class NetworkBoundResource<ResponseObject, ViewStateType> {
 
@@ -11,11 +18,18 @@ abstract class NetworkBoundResource<ResponseObject, ViewStateType> {
     init {
         result.value = DataState.loading(true)
 
-        val apiResponse = createCall()
-        result.addSource(apiResponse) { response ->
-            result.removeSource(apiResponse)
 
-            handleNetworkCall(response)
+        GlobalScope.launch(IO){
+            delay(TESTING_NETWORK_DELAY)
+
+            withContext(Main){
+                val apiResponse = createCall()
+                result.addSource(apiResponse) { response ->
+                    result.removeSource(apiResponse)
+
+                    handleNetworkCall(response)
+                }
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.codingwithmitch.mviexample.api.ApiService
 import com.codingwithmitch.mviexample.api.MyRetrofitBuilder
 import com.codingwithmitch.mviexample.model.BlogPost
+import com.codingwithmitch.mviexample.model.User
 import com.codingwithmitch.mviexample.ui.MainViewState
 import com.codingwithmitch.mviexample.util.ApiSuccessResponse
 import com.codingwithmitch.mviexample.util.DataState
@@ -22,7 +23,10 @@ object Repository {
             override fun handleApiSuccessResponse(response: ApiSuccessResponse<List<BlogPost>>) {
                 result.value = DataState.data(
                     null,
-                    MainViewState(response.body)
+                    MainViewState(
+                        blogPosts = response.body,
+                        user = null
+                    )
                 )
             }
 
@@ -34,6 +38,26 @@ object Repository {
 
     }
 
+    fun getUser(): LiveData<DataState<MainViewState>> {
+        return object: NetworkBoundResource<User, MainViewState>(){
+
+            override fun handleApiSuccessResponse(response: ApiSuccessResponse<User>) {
+                result.value = DataState.data(
+                    null,
+                    MainViewState(
+                        blogPosts = null,
+                        user = response.body
+                    )
+                )
+            }
+
+            override fun createCall(): LiveData<GenericApiResponse<User>> {
+                return apiService.getUser()
+            }
+
+        }.asLiveData()
+
+    }
 
 }
 
