@@ -1,7 +1,6 @@
-package com.codingwithmitch.openapi.util
+package com.codingwithmitch.mviexample.util
 
 import androidx.lifecycle.LiveData
-import com.codingwithmitch.mviexample.util.GenericApiResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback

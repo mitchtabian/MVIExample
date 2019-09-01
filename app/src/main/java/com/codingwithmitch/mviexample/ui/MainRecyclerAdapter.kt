@@ -39,9 +39,6 @@ class MainRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(BlogItemDiffCallback(oldList, blogList))
         items = blogList
         diffResult.dispatchUpdatesTo(this)
-
-//        items = blogList
-//        notifyDataSetChanged()
     }
 
     class BlogItemDiffCallback(
