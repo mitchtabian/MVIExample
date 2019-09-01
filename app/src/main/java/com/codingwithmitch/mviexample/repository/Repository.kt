@@ -5,7 +5,7 @@ import com.codingwithmitch.mviexample.api.ApiService
 import com.codingwithmitch.mviexample.api.MyRetrofitBuilder
 import com.codingwithmitch.mviexample.model.BlogPost
 import com.codingwithmitch.mviexample.model.User
-import com.codingwithmitch.mviexample.ui.MainViewState
+import com.codingwithmitch.mviexample.ui.state.MainViewState
 import com.codingwithmitch.mviexample.util.ApiSuccessResponse
 import com.codingwithmitch.mviexample.util.DataState
 import com.codingwithmitch.mviexample.util.GenericApiResponse

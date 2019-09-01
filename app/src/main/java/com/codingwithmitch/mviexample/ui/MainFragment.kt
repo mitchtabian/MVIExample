@@ -3,7 +3,6 @@ package com.codingwithmitch.mviexample.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -12,6 +11,8 @@ import com.bumptech.glide.Glide
 
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.model.User
+import com.codingwithmitch.mviexample.ui.state.MainViewState
+import com.codingwithmitch.mviexample.ui.state.MainStateEvent
 import com.codingwithmitch.mviexample.util.DataState
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -95,11 +96,11 @@ class MainFragment : Fragment() {
     }
 
     fun triggerGetUserEvent(){
-        viewModel.setStateEvent(StateEvent.GetUserEvent())
+        viewModel.setStateEvent(MainStateEvent.GetUserEvent())
     }
 
     fun triggerGetBlogsEvent(){
-        viewModel.setStateEvent(StateEvent.GetBlogPostsEvent())
+        viewModel.setStateEvent(MainStateEvent.GetBlogPostsEvent())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

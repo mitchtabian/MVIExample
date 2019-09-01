@@ -7,14 +7,16 @@ import androidx.lifecycle.ViewModel
 import com.codingwithmitch.mviexample.model.BlogPost
 import com.codingwithmitch.mviexample.model.User
 import com.codingwithmitch.mviexample.repository.Repository
-import com.codingwithmitch.mviexample.ui.StateEvent.*
+import com.codingwithmitch.mviexample.ui.state.MainViewState
+import com.codingwithmitch.mviexample.ui.state.MainStateEvent
+import com.codingwithmitch.mviexample.ui.state.MainStateEvent.*
 import com.codingwithmitch.mviexample.util.AbsentLiveData
 import com.codingwithmitch.mviexample.util.DataState
 
 class MainViewModel : ViewModel(){
 
-    protected val _stateEvent: MutableLiveData<StateEvent> = MutableLiveData()
-    protected val _viewState: MutableLiveData<MainViewState> = MutableLiveData()
+    private val _stateEvent: MutableLiveData<MainStateEvent> = MutableLiveData()
+    private val _viewState: MutableLiveData<MainViewState> = MutableLiveData()
 
     val viewState: LiveData<MainViewState>
         get() = _viewState
@@ -26,7 +28,7 @@ class MainViewModel : ViewModel(){
             }
         }
 
-    fun handleStateEvent(stateEvent: StateEvent): LiveData<DataState<MainViewState>>{
+    fun handleStateEvent(stateEvent: MainStateEvent): LiveData<DataState<MainViewState>>{
         when(stateEvent){
 
             is GetBlogPostsEvent -> {
@@ -43,8 +45,8 @@ class MainViewModel : ViewModel(){
         }
     }
 
-    fun setStateEvent(event: StateEvent){
-        val state: StateEvent
+    fun setStateEvent(event: MainStateEvent){
+        val state: MainStateEvent
         state = event
         _stateEvent.value = state
     }
@@ -61,7 +63,7 @@ class MainViewModel : ViewModel(){
         _viewState.value = update
     }
 
-    fun getCurrentViewStateOrNew(): MainViewState{
+    fun getCurrentViewStateOrNew(): MainViewState {
         val value = viewState.value?.let{
             it
         }?: MainViewState()

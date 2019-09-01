@@ -25,6 +25,10 @@ open class Event<out T>(private val content: T) {
      */
     fun peekContent(): T = content
 
+    override fun toString(): String {
+        return "Event(\ncontent=$content,\n hasBeenHandled=$hasBeenHandled)"
+    }
+
     companion object{
 
         // we don't want an event if there's no data
@@ -43,4 +47,6 @@ open class Event<out T>(private val content: T) {
             return null
         }
     }
+
+
 }

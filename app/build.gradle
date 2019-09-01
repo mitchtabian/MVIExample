@@ -47,10 +47,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
-//    // LiveData Coroutines (Needed for switchmap)
-//    def livedata_version = "2.2.0-alpha01"
-//    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_version"
-
     // -- Coroutines
     def coroutines_version = "1.2.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"

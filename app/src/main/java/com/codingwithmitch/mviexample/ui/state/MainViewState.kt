@@ -1,4 +1,4 @@
-package com.codingwithmitch.mviexample.ui
+package com.codingwithmitch.mviexample.ui.state
 
 import com.codingwithmitch.mviexample.model.BlogPost
 import com.codingwithmitch.mviexample.model.User

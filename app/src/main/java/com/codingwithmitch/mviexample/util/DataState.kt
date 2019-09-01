@@ -41,7 +41,7 @@ data class DataState<T>(
     }
 
     override fun toString(): String {
-        return "DataState(\nmessage=$message\n, loading=$loading\n, data=$data)"
+        return "DataState(\nmessage=$message,\n loading=$loading,\n data=$data)"
     }
 
 
