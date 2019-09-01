@@ -1,4 +1,4 @@
-package com.codingwithmitch.util
+package com.codingwithmitch.mviexample.util
 
 import androidx.lifecycle.LiveData
 

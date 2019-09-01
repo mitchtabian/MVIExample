@@ -1,4 +1,4 @@
-package com.codingwithmitch.util
+package com.codingwithmitch.mviexample.util
 
 import android.util.Log
 import retrofit2.Response

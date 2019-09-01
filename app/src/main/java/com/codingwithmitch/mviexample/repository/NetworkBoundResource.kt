@@ -2,7 +2,7 @@ package com.codingwithmitch.mviexample.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.codingwithmitch.util.*
+import com.codingwithmitch.mviexample.util.*
 
 abstract class NetworkBoundResource<ResponseObject, ViewStateType> {
 

@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.codingwithmitch.mviexample.model.BlogPost
 import com.codingwithmitch.mviexample.repository.Repository
 import com.codingwithmitch.mviexample.ui.StateEvent.*
-import com.codingwithmitch.util.AbsentLiveData
-import com.codingwithmitch.util.DataState
+import com.codingwithmitch.mviexample.util.AbsentLiveData
+import com.codingwithmitch.mviexample.util.DataState
 
 class MainViewModel : ViewModel(){
 

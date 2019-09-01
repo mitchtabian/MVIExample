@@ -1,4 +1,4 @@
-package com.codingwithmitch.util
+package com.codingwithmitch.mviexample.util
 
 data class DataState<T>(
     var message: String? = null,
