@@ -1,4 +1,4 @@
-package com.codingwithmitch.mviexample.ui
+package com.codingwithmitch.mviexample.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.codingwithmitch.mviexample.model.BlogPost
 import com.codingwithmitch.mviexample.model.User
 import com.codingwithmitch.mviexample.repository.Repository
-import com.codingwithmitch.mviexample.ui.state.MainViewState
-import com.codingwithmitch.mviexample.ui.state.MainStateEvent
-import com.codingwithmitch.mviexample.ui.state.MainStateEvent.*
+import com.codingwithmitch.mviexample.ui.main.state.MainViewState
+import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent
+import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent.*
 import com.codingwithmitch.mviexample.util.AbsentLiveData
 import com.codingwithmitch.mviexample.util.DataState
 

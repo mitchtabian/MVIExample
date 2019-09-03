@@ -1,4 +1,4 @@
-package com.codingwithmitch.mviexample.ui
+package com.codingwithmitch.mviexample.ui.main
 
 
 import android.content.Context
@@ -12,8 +12,9 @@ import com.bumptech.glide.Glide
 
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.model.User
-import com.codingwithmitch.mviexample.ui.state.MainViewState
-import com.codingwithmitch.mviexample.ui.state.MainStateEvent
+import com.codingwithmitch.mviexample.ui.DataStateHandler
+import com.codingwithmitch.mviexample.ui.main.state.MainViewState
+import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent
 import com.codingwithmitch.mviexample.util.DataState
 import com.codingwithmitch.mviexample.util.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_main.*

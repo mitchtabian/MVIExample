@@ -1,4 +1,4 @@
-package com.codingwithmitch.mviexample.ui
+package com.codingwithmitch.mviexample.ui.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +18,11 @@ class MainRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return BlogViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_blog_list_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.layout_blog_list_item,
+                parent,
+                false
+            )
         )
     }
 
@@ -36,7 +40,12 @@ class MainRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     fun submitList(blogList: List<BlogPost>){
         val oldList = items
-        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(BlogItemDiffCallback(oldList, blogList))
+        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
+            BlogItemDiffCallback(
+                oldList,
+                blogList
+            )
+        )
         items = blogList
         diffResult.dispatchUpdatesTo(this)
     }

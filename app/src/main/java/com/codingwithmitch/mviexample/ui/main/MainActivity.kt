@@ -1,4 +1,4 @@
-package com.codingwithmitch.mviexample.ui
+package com.codingwithmitch.mviexample.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,11 +6,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.codingwithmitch.mviexample.R
+import com.codingwithmitch.mviexample.ui.DataStateHandler
 import com.codingwithmitch.mviexample.util.DataState
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
-        DataStateHandler
+    DataStateHandler
 {
     override fun onDataStateChange(dataState: DataState<*>?) {
         handleDataStateChange(dataState)
@@ -29,7 +30,8 @@ class MainActivity : AppCompatActivity(),
 
     fun showMainFragment(){
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, MainFragment(), "MainFragment")
+            .replace(R.id.fragment_container,
+                MainFragment(), "MainFragment")
             .commit()
     }
 

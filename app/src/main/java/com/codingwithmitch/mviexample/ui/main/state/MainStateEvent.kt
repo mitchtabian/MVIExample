@@ -1,4 +1,4 @@
-package com.codingwithmitch.mviexample.ui.state
+package com.codingwithmitch.mviexample.ui.main.state
 
 sealed class MainStateEvent {
 
