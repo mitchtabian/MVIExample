@@ -2,7 +2,7 @@ package com.codingwithmitch.mviexample.ui
 
 import com.codingwithmitch.mviexample.util.DataState
 
-interface DataStateHandler {
+interface DataStateListener {
 
     fun onDataStateChange(dataState: DataState<*>?)
 }

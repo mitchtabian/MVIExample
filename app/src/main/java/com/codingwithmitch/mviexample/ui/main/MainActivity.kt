@@ -6,12 +6,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.codingwithmitch.mviexample.R
-import com.codingwithmitch.mviexample.ui.DataStateHandler
+import com.codingwithmitch.mviexample.ui.DataStateListener
 import com.codingwithmitch.mviexample.util.DataState
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
-    DataStateHandler
+    DataStateListener
 {
     override fun onDataStateChange(dataState: DataState<*>?) {
         handleDataStateChange(dataState)

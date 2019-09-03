@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.model.User
-import com.codingwithmitch.mviexample.ui.DataStateHandler
+import com.codingwithmitch.mviexample.ui.DataStateListener
 import com.codingwithmitch.mviexample.ui.main.state.MainViewState
 import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent
 import com.codingwithmitch.mviexample.util.DataState
@@ -24,7 +24,7 @@ class MainFragment : Fragment() {
 
     lateinit var viewModel: MainViewModel
 
-    lateinit var dataStateHandler: DataStateHandler
+    lateinit var dataStateHandler: DataStateListener
 
     lateinit var mainRecyclerAdapter: MainRecyclerAdapter
 
@@ -136,7 +136,7 @@ class MainFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try{
-            dataStateHandler = context as DataStateHandler
+            dataStateHandler = context as DataStateListener
         }catch(e: ClassCastException){
             println("$context must implement DataStateChangeListener")
         }
