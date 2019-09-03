@@ -109,7 +109,7 @@ class MainFragment : Fragment() {
     }
 
     fun triggerGetUserEvent(){
-        viewModel.setStateEvent(MainStateEvent.GetUserEvent())
+        viewModel.setStateEvent(MainStateEvent.GetUserEvent("1"))
     }
 
     fun triggerGetBlogsEvent(){

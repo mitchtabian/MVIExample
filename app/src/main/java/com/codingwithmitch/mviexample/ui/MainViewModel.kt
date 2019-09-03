@@ -36,7 +36,9 @@ class MainViewModel : ViewModel(){
             }
 
             is GetUserEvent -> {
-                return Repository.getUser()
+                return Repository.getUser(
+                    stateEvent.userId
+                )
             }
 
             is None ->{
