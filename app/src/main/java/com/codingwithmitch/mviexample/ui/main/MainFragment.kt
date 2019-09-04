@@ -6,16 +6,21 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.ui.DataStateListener
 import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent
 import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent.*
+import com.codingwithmitch.mviexample.util.TopSpacingItemDecoration
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(){
 
     lateinit var viewModel: MainViewModel
 
     lateinit var dataStateHandler: DataStateListener
+
+    lateinit var mainRecyclerAdapter: MainRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +39,17 @@ class MainFragment : Fragment(){
         }?: throw Exception("Invalid Activity")
 
         subscribeObservers()
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView(){
+        recycler_view.apply {
+            layoutManager = LinearLayoutManager(activity)
+            val topSpacingDecorator = TopSpacingItemDecoration(30)
+            addItemDecoration(topSpacingDecorator)
+            mainRecyclerAdapter = MainRecyclerAdapter()
+            adapter = mainRecyclerAdapter
+        }
     }
 
     private fun subscribeObservers(){
@@ -62,9 +78,10 @@ class MainFragment : Fragment(){
         })
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer {viewState ->
-            viewState.blogPosts?.let {
+            viewState.blogPosts?.let {blogPosts ->
                 // set BlogPosts to RecyclerView
-                println("DEBUG: Setting blog posts to RecyclerView: ${viewState.blogPosts}")
+                println("DEBUG: Setting blog posts to RecyclerView: ${blogPosts}")
+                mainRecyclerAdapter.submitList(blogPosts)
             }
 
             viewState.user?.let{
