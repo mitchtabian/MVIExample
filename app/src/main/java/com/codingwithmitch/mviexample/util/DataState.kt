@@ -1,9 +1,10 @@
 package com.codingwithmitch.mviexample.util
 
+
 data class DataState<T>(
-    var message: String? = null,
+    var message: Event<String>? = null,
     var loading: Boolean = false,
-    var data: T? = null
+    var data: Event<T>? = null
 )
 {
     companion object {
@@ -12,7 +13,7 @@ data class DataState<T>(
             message: String
         ): DataState<T> {
             return DataState(
-                message = message,
+                message = Event(message),
                 loading = false,
                 data = null
             )
@@ -33,14 +34,14 @@ data class DataState<T>(
             data: T? = null
         ): DataState<T> {
             return DataState(
-                message = message,
+                message = Event.messageEvent(message),
                 loading = false,
-                data = data
+                data = Event.dataEvent(data)
             )
         }
     }
 
     override fun toString(): String {
-        return "DataState(\nmessage=$message,\n loading=$loading,\n data=$data)"
+        return "DataState(message=$message,loading=$loading,data=$data)"
     }
 }
