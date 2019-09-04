@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.codingwithmitch.mviexample.R
+import com.codingwithmitch.mviexample.model.User
 import com.codingwithmitch.mviexample.ui.DataStateListener
 import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent
 import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent.*
@@ -84,11 +86,25 @@ class MainFragment : Fragment(){
                 mainRecyclerAdapter.submitList(blogPosts)
             }
 
-            viewState.user?.let{
+            viewState.user?.let{ user ->
                 // set User data to widgets
-                println("DEBUG: Setting User data: ${viewState.user}")
+                println("DEBUG: Setting User data: ${user}")
+                setUserProperties(user)
+
             }
         })
+    }
+
+    fun setUserProperties(user: User){
+        email.setText(user.email)
+        username.setText(user.username)
+
+        view?.let{
+            Glide.with(it.context)
+                .load(user.image)
+                .into(image)
+        }
+
     }
 
     fun triggerGetUserEvent(){
