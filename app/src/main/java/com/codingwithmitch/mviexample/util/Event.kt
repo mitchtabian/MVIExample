@@ -26,7 +26,7 @@ class Event<T>(private val content: T) {
     fun peekContent(): T = content
 
     override fun toString(): String {
-        return "Event(\ncontent=$content,\n hasBeenHandled=$hasBeenHandled)"
+        return "Event(content=$content,hasBeenHandled=$hasBeenHandled)"
     }
 
     companion object{
