@@ -90,11 +90,13 @@ class MainFragment : Fragment() {
     }
 
     private fun initRecyclerView(){
-        recycler_view.layoutManager = LinearLayoutManager(activity)
-        val topSpacingDecorator = TopSpacingItemDecoration(30)
-        recycler_view.addItemDecoration(topSpacingDecorator)
-        mainRecyclerAdapter = MainRecyclerAdapter()
-        recycler_view.adapter = mainRecyclerAdapter
+        recycler_view.apply {
+            layoutManager = LinearLayoutManager(activity)
+            val topSpacingDecorator = TopSpacingItemDecoration(30)
+            addItemDecoration(topSpacingDecorator)
+            mainRecyclerAdapter = MainRecyclerAdapter()
+            adapter = mainRecyclerAdapter
+        }
     }
 
     fun setUserProperties(user: User){

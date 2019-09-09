@@ -1,4 +1,5 @@
-<h1>Example MVI implementation.</h1>
+<h1><a href="https://codingwithmitch.com/courses/model-view-intent-mvi-architecture/" target="_blank">Example MVI implementation</a></h1>
+<p>This repository is code for a video course. <a href="https://codingwithmitch.com/courses/model-view-intent-mvi-architecture/" target="_blank">Click here to watch the course</a>.</p>
 <p>The app uses the following libraries / topics:</p>
 <ul>
 	<li>Kotlin</li>
