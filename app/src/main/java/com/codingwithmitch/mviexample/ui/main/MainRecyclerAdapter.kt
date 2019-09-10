@@ -53,16 +53,10 @@ class MainRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     class BlogItemDiffCallback(
         var oldBlogList: List<BlogPost>,
         var newBlogList: List<BlogPost>
+    ): DiffUtil.Callback(){
 
-    ): DiffUtil.Callback() {
-
-
-        override fun areItemsTheSame(
-            oldItemPosition: Int,
-            newItemPosition: Int
-        ): Boolean {
-            return (oldBlogList.get(oldItemPosition).pk
-                    == newBlogList.get(newItemPosition).pk)
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return (oldBlogList.get(oldItemPosition).pk == newBlogList.get(newItemPosition).pk)
         }
 
         override fun getOldListSize(): Int {
@@ -73,13 +67,10 @@ class MainRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             return newBlogList.size
         }
 
-        override fun areContentsTheSame(
-            oldItemPosition: Int,
-            newItemPosition: Int
-        ): Boolean {
-            return (oldBlogList.get(oldItemPosition)
-                    == newBlogList.get(newItemPosition))
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return (oldBlogList.get(oldItemPosition) == newBlogList.get(newItemPosition))
         }
+
     }
 
     class BlogViewHolder
