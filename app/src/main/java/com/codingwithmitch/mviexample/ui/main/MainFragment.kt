@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 
 import com.codingwithmitch.mviexample.R
+import com.codingwithmitch.mviexample.model.BlogPost
 import com.codingwithmitch.mviexample.model.User
 import com.codingwithmitch.mviexample.ui.DataStateListener
 import com.codingwithmitch.mviexample.ui.main.state.MainViewState
@@ -20,13 +21,19 @@ import com.codingwithmitch.mviexample.util.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(),
+    MainListAdapter.Interaction
+{
+    override fun onItemSelected(position: Int, item: BlogPost) {
+        println("DEBUG: CLICKED: $position")
+        println("DEBUG: CLICKED: $item")
+    }
 
     lateinit var viewModel: MainViewModel
 
     lateinit var dataStateHandler: DataStateListener
 
-    lateinit var mainRecyclerAdapter: MainRecyclerAdapter
+    lateinit var mainRecyclerAdapter: MainListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,7 +101,7 @@ class MainFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             val topSpacingDecorator = TopSpacingItemDecoration(30)
             addItemDecoration(topSpacingDecorator)
-            mainRecyclerAdapter = MainRecyclerAdapter()
+            mainRecyclerAdapter = MainListAdapter(this@MainFragment)
             adapter = mainRecyclerAdapter
         }
     }

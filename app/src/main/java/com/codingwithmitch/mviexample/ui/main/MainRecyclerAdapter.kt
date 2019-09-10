@@ -68,7 +68,7 @@ class MainRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return (oldBlogList.get(oldItemPosition) == newBlogList.get(newItemPosition))
+            return oldBlogList.get(oldItemPosition).equals(newBlogList.get(newItemPosition))
         }
 
     }
