@@ -22,5 +22,3 @@ object MyRetrofitBuilder {
             .create(ApiService::class.java)
     }
 }
-
-

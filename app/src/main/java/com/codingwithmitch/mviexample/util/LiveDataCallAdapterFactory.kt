@@ -1,5 +1,6 @@
 package com.codingwithmitch.mviexample.util
 
+
 import androidx.lifecycle.LiveData
 import retrofit2.CallAdapter
 import retrofit2.CallAdapter.Factory

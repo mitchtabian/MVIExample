@@ -23,28 +23,12 @@ data class BlogPost(
     val image: String? = null
 )
 {
-
     override fun equals(other: Any?): Boolean {
-
-        if(javaClass != other?.javaClass){
-            return false
-        }
+        if (javaClass != other?.javaClass) return false
 
         other as BlogPost
 
-        if(pk != other.pk){
-            return false
-        }
-        if(title != other.title){
-            return false
-        }
-        if(body != other.body){
-            return false
-        }
-        if(image != other.image){
-            return false
-        }
-
+        if (pk != other.pk) return false
 
         return true
     }

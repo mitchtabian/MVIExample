@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.codingwithmitch.mviexample.model.BlogPost
 import com.codingwithmitch.mviexample.model.User
 import com.codingwithmitch.mviexample.repository.Repository
-import com.codingwithmitch.mviexample.ui.main.state.MainViewState
 import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent
 import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent.*
+import com.codingwithmitch.mviexample.ui.main.state.MainViewState
 import com.codingwithmitch.mviexample.util.AbsentLiveData
 import com.codingwithmitch.mviexample.util.DataState
 
@@ -21,6 +21,7 @@ class MainViewModel : ViewModel(){
     val viewState: LiveData<MainViewState>
         get() = _viewState
 
+
     val dataState: LiveData<DataState<MainViewState>> = Transformations
         .switchMap(_stateEvent){stateEvent ->
             stateEvent?.let {
@@ -29,6 +30,7 @@ class MainViewModel : ViewModel(){
         }
 
     fun handleStateEvent(stateEvent: MainStateEvent): LiveData<DataState<MainViewState>>{
+        println("DEBUG: New StateEvent detected: $stateEvent")
         when(stateEvent){
 
             is GetBlogPostsEvent -> {
@@ -36,21 +38,13 @@ class MainViewModel : ViewModel(){
             }
 
             is GetUserEvent -> {
-                return Repository.getUser(
-                    stateEvent.userId
-                )
+                return Repository.getUser(stateEvent.userId)
             }
 
             is None ->{
                 return AbsentLiveData.create()
             }
         }
-    }
-
-    fun setStateEvent(event: MainStateEvent){
-        val state: MainStateEvent
-        state = event
-        _stateEvent.value = state
     }
 
     fun setBlogListData(blogPosts: List<BlogPost>){
@@ -72,11 +66,12 @@ class MainViewModel : ViewModel(){
         return value
     }
 
+    fun setStateEvent(event: MainStateEvent){
+        val state: MainStateEvent
+        state = event
+        _stateEvent.value = state
+    }
 }
-
-
-
-
 
 
 

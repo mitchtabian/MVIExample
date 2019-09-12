@@ -1,6 +1,5 @@
 package com.codingwithmitch.mviexample.ui.main
 
-
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -9,18 +8,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-
 import com.codingwithmitch.mviexample.R
+import com.codingwithmitch.mviexample.model.BlogPost
 import com.codingwithmitch.mviexample.model.User
 import com.codingwithmitch.mviexample.ui.DataStateListener
-import com.codingwithmitch.mviexample.ui.main.state.MainViewState
-import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent
-import com.codingwithmitch.mviexample.util.DataState
+import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent.*
 import com.codingwithmitch.mviexample.util.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_main.*
 
-
-class MainFragment : Fragment() {
+class MainFragment : Fragment(),
+    MainRecyclerAdapter.Interaction
+{
+    override fun onItemSelected(position: Int, item: BlogPost) {
+        println("DEBUG: CLICKED ${position}")
+        println("DEBUG: CLICKED ${item}")
+    }
 
     lateinit var viewModel: MainViewModel
 
@@ -36,10 +38,10 @@ class MainFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
         viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
         }?: throw Exception("Invalid Activity")
@@ -48,55 +50,56 @@ class MainFragment : Fragment() {
         initRecyclerView()
     }
 
-    fun subscribeObservers(){
-        viewModel.dataState.observe(this, Observer { dataState ->
-            handleDataState(dataState)
-        })
-
-        viewModel.viewState.observe(this, Observer { viewState ->
-            handleViewState(viewState)
-        })
-    }
-
-    fun handleDataState(dataState: DataState<MainViewState>){
-        println("DEBUG: DataState: ${dataState}")
-        // Handle Loading and Message
-        dataStateHandler.onDataStateChange(dataState)
-
-        // Handle Data<T>
-        dataState.data?.let{ event ->
-            event.getContentIfNotHandled()?.let{ viewState ->
-                viewState.blogPosts?.let { blogPosts ->
-                    viewModel.setBlogListData(blogPosts)
-                }
-                viewState.user?.let { user ->
-                    viewModel.setUser(user)
-                }
-            }
-        }
-    }
-
-    fun handleViewState(viewState: MainViewState){
-        println("DEBUG: ViewState: ${viewState}")
-        viewState.blogPosts?.let{ blogPosts ->
-            // Set recyclerview data
-            mainRecyclerAdapter.submitList(blogPosts)
-
-        }
-        viewState.user?.let{ user ->
-            // Set user data
-            setUserProperties(user)
-        }
-    }
-
     private fun initRecyclerView(){
         recycler_view.apply {
             layoutManager = LinearLayoutManager(activity)
             val topSpacingDecorator = TopSpacingItemDecoration(30)
             addItemDecoration(topSpacingDecorator)
-            mainRecyclerAdapter = MainRecyclerAdapter()
+            mainRecyclerAdapter = MainRecyclerAdapter(this@MainFragment)
             adapter = mainRecyclerAdapter
         }
+    }
+
+
+    private fun subscribeObservers(){
+        viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
+
+            // Handle Loading and Message
+            dataStateHandler.onDataStateChange(dataState)
+
+            // handle Data<T>
+            dataState.data?.let{ event ->
+                event.getContentIfNotHandled()?.let{ mainViewState ->
+
+                    println("DEBUG: DataState: ${mainViewState}")
+
+                    mainViewState.blogPosts?.let{
+                        // set BlogPosts data
+                        viewModel.setBlogListData(it)
+                    }
+
+                    mainViewState.user?.let{
+                        // set User data
+                        viewModel.setUser(it)
+                    }
+                }
+            }
+        })
+
+        viewModel.viewState.observe(viewLifecycleOwner, Observer {viewState ->
+            viewState.blogPosts?.let {blogPosts ->
+                // set BlogPosts to RecyclerView
+                println("DEBUG: Setting blog posts to RecyclerView: ${blogPosts}")
+                mainRecyclerAdapter.submitList(blogPosts)
+            }
+
+            viewState.user?.let{ user ->
+                // set User data to widgets
+                println("DEBUG: Setting User data: ${user}")
+                setUserProperties(user)
+
+            }
+        })
     }
 
     fun setUserProperties(user: User){
@@ -112,11 +115,11 @@ class MainFragment : Fragment() {
     }
 
     fun triggerGetUserEvent(){
-        viewModel.setStateEvent(MainStateEvent.GetUserEvent("1"))
+        viewModel.setStateEvent(GetUserEvent("1"))
     }
 
     fun triggerGetBlogsEvent(){
-        viewModel.setStateEvent(MainStateEvent.GetBlogPostsEvent())
+        viewModel.setStateEvent(GetBlogPostsEvent())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -125,7 +128,6 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when(item.itemId){
             R.id.action_get_blogs-> triggerGetBlogsEvent()
 
@@ -140,28 +142,11 @@ class MainFragment : Fragment() {
         try{
             dataStateHandler = context as DataStateListener
         }catch(e: ClassCastException){
-            println("$context must implement DataStateChangeListener")
+            println("$context must implement DataStateListener")
         }
 
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

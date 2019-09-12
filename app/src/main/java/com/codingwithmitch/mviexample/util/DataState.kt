@@ -1,5 +1,6 @@
 package com.codingwithmitch.mviexample.util
 
+
 data class DataState<T>(
     var message: Event<String>? = null,
     var loading: Boolean = false,
@@ -41,8 +42,6 @@ data class DataState<T>(
     }
 
     override fun toString(): String {
-        return "DataState(\nmessage=$message,\n loading=$loading,\n data=$data)"
+        return "DataState(message=$message,loading=$loading,data=$data)"
     }
-
-
 }

@@ -17,8 +17,3 @@ interface ApiService {
         @Path("userId") userId: String
     ): LiveData<GenericApiResponse<User>>
 }
-
-
-
-
-

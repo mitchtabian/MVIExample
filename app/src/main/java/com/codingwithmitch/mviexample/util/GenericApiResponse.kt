@@ -1,5 +1,6 @@
 package com.codingwithmitch.mviexample.util
 
+
 import android.util.Log
 import retrofit2.Response
 
@@ -58,21 +59,3 @@ class ApiEmptyResponse<T> : GenericApiResponse<T>()
 data class ApiSuccessResponse<T>(val body: T) : GenericApiResponse<T>() {}
 
 data class ApiErrorResponse<T>(val errorMessage: String) : GenericApiResponse<T>()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

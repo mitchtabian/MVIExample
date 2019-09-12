@@ -60,16 +60,3 @@ abstract class NetworkBoundResource<ResponseObject, ViewStateType> {
 
     fun asLiveData() = result as LiveData<DataState<ViewStateType>>
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

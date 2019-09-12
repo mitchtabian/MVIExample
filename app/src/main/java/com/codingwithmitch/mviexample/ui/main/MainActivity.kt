@@ -36,15 +36,13 @@ class MainActivity : AppCompatActivity(),
     }
 
     fun handleDataStateChange(dataState: DataState<*>?){
-        println("DEBUG: DataStateChange : ${dataState}")
         dataState?.let{
-
             // Handle loading
             showProgressBar(dataState.loading)
 
             // Handle Message
             dataState.message?.let{ event ->
-                event.getContentIfNotHandled()?.let{ message ->
+                event.getContentIfNotHandled()?.let { message ->
                     showToast(message)
                 }
             }
@@ -63,6 +61,7 @@ class MainActivity : AppCompatActivity(),
             progress_bar.visibility = View.INVISIBLE
         }
     }
+
 
 }
 
