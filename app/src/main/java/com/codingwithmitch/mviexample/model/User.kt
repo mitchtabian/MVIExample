@@ -16,7 +16,7 @@ data class User(
     @Expose
     @SerializedName("image")
     val image: String? = null
-){
+) {
     override fun toString(): String {
         return "User(email=$email, username=$username, image=$image)"
     }

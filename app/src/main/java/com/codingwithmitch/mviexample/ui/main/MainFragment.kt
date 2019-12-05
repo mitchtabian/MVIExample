@@ -2,23 +2,30 @@ package com.codingwithmitch.mviexample.ui.main
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.model.BlogPost
 import com.codingwithmitch.mviexample.model.User
 import com.codingwithmitch.mviexample.ui.DataStateListener
 import com.codingwithmitch.mviexample.ui.main.state.MainStateEvent.*
+import com.codingwithmitch.mviexample.ui.main.state.MainViewState
 import com.codingwithmitch.mviexample.util.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(),
     MainRecyclerAdapter.Interaction
 {
+
+    private val TAG: String = "AppDebug"
+
     override fun onItemSelected(position: Int, item: BlogPost) {
         println("DEBUG: CLICKED ${position}")
         println("DEBUG: CLICKED ${item}")
@@ -46,20 +53,20 @@ class MainFragment : Fragment(),
             ViewModelProvider(this).get(MainViewModel::class.java)
         }?: throw Exception("Invalid Activity")
 
-        subscribeObservers()
+
         initRecyclerView()
+        subscribeObservers()
     }
 
     private fun initRecyclerView(){
         recycler_view.apply {
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(this@MainFragment.context)
             val topSpacingDecorator = TopSpacingItemDecoration(30)
             addItemDecoration(topSpacingDecorator)
             mainRecyclerAdapter = MainRecyclerAdapter(this@MainFragment)
             adapter = mainRecyclerAdapter
         }
     }
-
 
     private fun subscribeObservers(){
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
@@ -75,6 +82,7 @@ class MainFragment : Fragment(),
 
                     mainViewState.blogPosts?.let{
                         // set BlogPosts data
+
                         viewModel.setBlogListData(it)
                     }
 

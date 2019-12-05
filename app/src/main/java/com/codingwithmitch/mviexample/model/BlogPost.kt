@@ -21,8 +21,7 @@ data class BlogPost(
     @Expose
     @SerializedName("image")
     val image: String? = null
-)
-{
+) {
     override fun equals(other: Any?): Boolean {
         if (javaClass != other?.javaClass) return false
 

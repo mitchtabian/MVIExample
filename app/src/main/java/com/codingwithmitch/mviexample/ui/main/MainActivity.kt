@@ -29,10 +29,15 @@ class MainActivity : AppCompatActivity(),
     }
 
     fun showMainFragment(){
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container,
-                MainFragment(), "MainFragment")
-            .commit()
+        if(supportFragmentManager.fragments.size == 0){
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    MainFragment(),
+                    "MainFragment"
+                )
+                .commit()
+        }
     }
 
     fun handleDataStateChange(dataState: DataState<*>?){

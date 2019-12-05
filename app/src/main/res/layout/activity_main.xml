@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity"
     android:background="#fff"
+    android:id="@+id/activity_main_parent"
     >
 
     <FrameLayout
