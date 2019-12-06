@@ -20,8 +20,16 @@ class MainFragment : Fragment(),
     private val TAG: String = "AppDebug"
 
     override fun onItemSelected(position: Int, item: BlogPost) {
-        println("DEBUG: CLICKED ${position}")
-        println("DEBUG: CLICKED ${item}")
+        viewModel.setBlogPost(item)
+        activity?.supportFragmentManager
+            ?.beginTransaction()
+            ?.replace(
+                R.id.fragment_container,
+                DetailFragment::class.java,
+                null
+                )
+            ?.addToBackStack("DetailFragment")
+            ?.commit()
     }
 
     private lateinit var viewModel: MainViewModel
@@ -51,7 +59,6 @@ class MainFragment : Fragment(),
         if(savedInstanceState == null){
             triggerGetBlogsEvent()
         }
-
     }
 
     private fun initRecyclerView(){

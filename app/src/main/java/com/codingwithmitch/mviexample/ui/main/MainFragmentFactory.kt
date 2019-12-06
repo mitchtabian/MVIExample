@@ -11,6 +11,11 @@ class MainFragmentFactory : FragmentFactory(){
             MainFragment::class.java.name -> {
                 MainFragment()
             }
+
+            DetailFragment::class.java.name -> {
+                DetailFragment()
+            }
+
             else -> {
                 super.instantiate(classLoader, className)
             }
