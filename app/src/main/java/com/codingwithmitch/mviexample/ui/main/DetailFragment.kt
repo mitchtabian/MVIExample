@@ -30,11 +30,26 @@ class DetailFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        subscribeObservers()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
         }?: throw Exception("Invalid Activity")
 
-        subscribeObservers()
+        savedInstanceState?.let { inState ->
+            (inState["blog_post"] as BlogPost?)?.let{ blogPost ->
+                viewModel.setBlogPost(blogPost)
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("blog_post", viewModel.viewState.value?.blogPost)
     }
 
     private fun subscribeObservers(){

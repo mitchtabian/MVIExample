@@ -9,9 +9,9 @@ import com.codingwithmitch.mviexample.util.*
 object Repository {
 
     fun getBlogPosts(): LiveData<DataState<MainViewState>> {
-        return object: NetworkBoundResource<List<BlogPost>, MainViewState>(){
+        return object: NetworkBoundResource<ArrayList<BlogPost>, MainViewState>(){
 
-            override fun handleApiSuccessResponse(response: ApiSuccessResponse<List<BlogPost>>) {
+            override fun handleApiSuccessResponse(response: ApiSuccessResponse<ArrayList<BlogPost>>) {
                 result.value = DataState.data(
                     null,
                     MainViewState(
@@ -20,7 +20,7 @@ object Repository {
                 )
             }
 
-            override fun createCall(): LiveData<GenericApiResponse<List<BlogPost>>> {
+            override fun createCall(): LiveData<GenericApiResponse<ArrayList<BlogPost>>> {
                 return MyRetrofitBuilder.apiService.getBlogPosts()
             }
 

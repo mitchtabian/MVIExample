@@ -48,17 +48,31 @@ class MainFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = activity?.run {
-            ViewModelProvider(this).get(MainViewModel::class.java)
-        }?: throw Exception("Invalid Activity")
-
         initRecyclerView()
         subscribeObservers()
 
         if(savedInstanceState == null){
             triggerGetBlogsEvent()
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel = activity?.run {
+            ViewModelProvider(this).get(MainViewModel::class.java)
+        }?: throw Exception("Invalid Activity")
+
+        savedInstanceState?.let { inState ->
+            (inState["blog_posts"] as ArrayList<BlogPost>?)?.let{ blogList ->
+                viewModel.setBlogListData(blogList)
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList("blog_posts", viewModel.viewState.value?.blogPosts)
     }
 
     private fun initRecyclerView(){

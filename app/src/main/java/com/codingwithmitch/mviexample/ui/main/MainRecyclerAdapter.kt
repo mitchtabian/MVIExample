@@ -72,7 +72,7 @@ class MainRecyclerAdapter(
 
             // need to shrink images b/c they are very high resolution
             val requestOptions = RequestOptions
-                .overrideOf(1920, 1080)
+                .overrideOf(1280, 720)
             Glide.with(itemView.context)
                 .applyDefaultRequestOptions(requestOptions)
                 .load(item.image)

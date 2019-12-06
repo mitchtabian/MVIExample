@@ -1,9 +1,12 @@
 package com.codingwithmitch.mviexample.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class BlogPost(
 
     @Expose
@@ -21,8 +24,7 @@ data class BlogPost(
     @Expose
     @SerializedName("image")
     val image: String
-)
-{
+) : Parcelable {
     override fun toString(): String {
         return "BlogPost(pk=$pk, title=$title, body=$body, image=$image)"
     }

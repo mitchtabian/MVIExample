@@ -42,7 +42,7 @@ class MainViewModel : ViewModel(){
         }
     }
 
-    fun setBlogListData(blogPosts: List<BlogPost>){
+    fun setBlogListData(blogPosts: ArrayList<BlogPost>){
         val update = getCurrentViewStateOrNew()
         update.blogPosts = blogPosts
         _viewState.value = update
