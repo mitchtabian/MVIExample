@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.RequestOptions
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.model.BlogPost
@@ -30,32 +29,7 @@ class MainRecyclerAdapter(
         }
 
     }
-    private val differ =
-        AsyncListDiffer(
-            BlogRecyclerChangeCallback(this),
-            AsyncDifferConfig.Builder(DIFF_CALLBACK).build()
-        )
-
-    internal inner class BlogRecyclerChangeCallback(
-        private val adapter: MainRecyclerAdapter
-    ) : ListUpdateCallback {
-
-        override fun onChanged(position: Int, count: Int, payload: Any?) {
-            adapter.notifyItemRangeChanged(position, count, payload)
-        }
-
-        override fun onInserted(position: Int, count: Int) {
-            adapter.notifyItemRangeChanged(position, count)
-        }
-
-        override fun onMoved(fromPosition: Int, toPosition: Int) {
-            adapter.notifyDataSetChanged()
-        }
-
-        override fun onRemoved(position: Int, count: Int) {
-            adapter.notifyDataSetChanged()
-        }
-    }
+    private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -82,8 +56,7 @@ class MainRecyclerAdapter(
     }
 
     fun submitList(list: List<BlogPost>?) {
-        val newList = list?.toMutableList()
-        differ.submitList(newList)
+        differ.submitList(list)
     }
 
     class BlogPostViewHolder
