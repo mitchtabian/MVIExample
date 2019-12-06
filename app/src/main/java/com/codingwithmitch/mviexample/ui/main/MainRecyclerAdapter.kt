@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.model.BlogPost
 import kotlinx.android.synthetic.main.layout_blog_list_item.view.*
 
 class MainRecyclerAdapter(
-    private val interaction: Interaction? = null
+    private val interaction: Interaction? = null,
+    private val requestManager: RequestManager
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -39,7 +41,8 @@ class MainRecyclerAdapter(
                 parent,
                 false
             ),
-            interaction
+            interaction,
+            requestManager
         )
     }
 
@@ -62,7 +65,8 @@ class MainRecyclerAdapter(
     class BlogPostViewHolder
     constructor(
         itemView: View,
-        private val interaction: Interaction?
+        private val interaction: Interaction?,
+        private val requestManager: RequestManager
     ) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(item: BlogPost) = with(itemView) {
@@ -70,11 +74,7 @@ class MainRecyclerAdapter(
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            // need to shrink images b/c they are very high resolution
-            val requestOptions = RequestOptions
-                .overrideOf(1280, 720)
-            Glide.with(itemView.context)
-                .applyDefaultRequestOptions(requestOptions)
+            requestManager
                 .load(item.image)
                 .into(itemView.blog_image)
 

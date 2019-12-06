@@ -23,8 +23,8 @@
             android:id="@+id/blog_image"
             android:padding="0dp"
             android:layout_margin="0dp"
-            android:adjustViewBounds="true"
             android:scaleType="fitXY"
+            android:adjustViewBounds="true"
             />
 
         <LinearLayout
