@@ -2,13 +2,11 @@ package com.codingwithmitch.mviexample.ui.main
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.model.BlogPost
 import com.codingwithmitch.mviexample.ui.DataStateListener
@@ -111,11 +109,6 @@ class MainFragment : Fragment(),
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // clear references (can leak memory)
-        main_recycler_view.adapter = null
-    }
 }
 
 
