@@ -25,7 +25,6 @@
             android:layout_margin="0dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-
             />
 
         <LinearLayout

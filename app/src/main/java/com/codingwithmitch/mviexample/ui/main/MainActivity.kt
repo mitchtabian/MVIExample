@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.ui.DataStateListener
 import com.codingwithmitch.mviexample.util.DataState
@@ -17,22 +16,23 @@ class MainActivity : AppCompatActivity(),
         handleDataStateChange(dataState)
     }
 
-    lateinit var viewModel: MainViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportFragmentManager.fragmentFactory = MainFragmentFactory()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
         showMainFragment()
     }
 
     fun showMainFragment(){
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container,
-                MainFragment(), "MainFragment")
-            .commit()
+        if(supportFragmentManager.fragments.size == 0){
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    MainFragment::class.java,
+                    null
+                )
+                .commit()
+        }
     }
 
     fun handleDataStateChange(dataState: DataState<*>?){

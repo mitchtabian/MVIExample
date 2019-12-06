@@ -4,16 +4,18 @@ package com.codingwithmitch.mviexample.ui.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.model.BlogPost
 import kotlinx.android.synthetic.main.layout_blog_list_item.view.*
 
-class MainRecyclerAdapter(private val interaction: Interaction? = null) :
+class MainRecyclerAdapter(
+    private val interaction: Interaction? = null
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val TAG: String = "AppDebug"
 
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<BlogPost>() {
 
@@ -26,8 +28,32 @@ class MainRecyclerAdapter(private val interaction: Interaction? = null) :
         }
 
     }
-    private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
+    private val differ =
+        AsyncListDiffer(
+            BlogRecyclerChangeCallback(this),
+            AsyncDifferConfig.Builder(DIFF_CALLBACK).build()
+        )
 
+    internal inner class BlogRecyclerChangeCallback(
+        private val adapter: MainRecyclerAdapter
+    ) : ListUpdateCallback {
+
+        override fun onChanged(position: Int, count: Int, payload: Any?) {
+            adapter.notifyItemRangeChanged(position, count, payload)
+        }
+
+        override fun onInserted(position: Int, count: Int) {
+            adapter.notifyItemRangeChanged(position, count)
+        }
+
+        override fun onMoved(fromPosition: Int, toPosition: Int) {
+            adapter.notifyDataSetChanged()
+        }
+
+        override fun onRemoved(position: Int, count: Int) {
+            adapter.notifyDataSetChanged()
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -53,8 +79,9 @@ class MainRecyclerAdapter(private val interaction: Interaction? = null) :
         return differ.currentList.size
     }
 
-    fun submitList(list: List<BlogPost>) {
-        differ.submitList(list)
+    fun submitList(list: List<BlogPost>?) {
+        val newList = list?.toMutableList()
+        differ.submitList(newList)
     }
 
     class BlogPostViewHolder
@@ -68,11 +95,11 @@ class MainRecyclerAdapter(private val interaction: Interaction? = null) :
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            itemView.blog_title.text = item.title
-
             Glide.with(itemView.context)
                 .load(item.image)
                 .into(itemView.blog_image)
+
+            itemView.blog_title.text = item.title
         }
     }
 

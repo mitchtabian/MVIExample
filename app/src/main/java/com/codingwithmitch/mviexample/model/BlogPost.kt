@@ -8,33 +8,23 @@ data class BlogPost(
 
     @Expose
     @SerializedName("pk")
-    val pk: Int? = null,
+    val pk: Int,
 
     @Expose
     @SerializedName("title")
-    val title: String? = null,
+    val title: String,
 
     @Expose
     @SerializedName("body")
-    val body: String? = null,
+    val body: String,
 
     @Expose
     @SerializedName("image")
-    val image: String? = null
+    val image: String
 )
 {
-    override fun equals(other: Any?): Boolean {
-        if (javaClass != other?.javaClass) return false
-
-        other as BlogPost
-
-        if (pk != other.pk) return false
-
-        return true
-    }
-
     override fun toString(): String {
-        return "BlogPost(title=$title, body=$body, image=$image)"
+        return "BlogPost(pk=$pk, title=$title, body=$body, image=$image)"
     }
 }
 
