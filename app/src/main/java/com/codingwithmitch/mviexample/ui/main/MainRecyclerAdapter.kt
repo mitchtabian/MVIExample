@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.codingwithmitch.mviexample.R
 import com.codingwithmitch.mviexample.model.BlogPost
 import kotlinx.android.synthetic.main.layout_blog_list_item.view.*
@@ -68,11 +69,15 @@ class MainRecyclerAdapter(private val interaction: Interaction? = null) :
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            itemView.blog_title.text = item.title
-
+            // need to shrink images b/c they are very high resolution
+            val requestOptions = RequestOptions
+                .overrideOf(1920, 1080)
             Glide.with(itemView.context)
+                .applyDefaultRequestOptions(requestOptions)
                 .load(item.image)
                 .into(itemView.blog_image)
+
+            itemView.blog_title.text = item.title
         }
     }
 
