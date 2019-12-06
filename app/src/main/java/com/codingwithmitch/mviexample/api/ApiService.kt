@@ -9,6 +9,6 @@ import retrofit2.http.Path
 interface ApiService {
 
     @GET("placeholder/blogs")
-    fun getBlogPosts(): LiveData<GenericApiResponse<List<BlogPost>>>
+    fun getBlogPosts(): LiveData<GenericApiResponse<ArrayList<BlogPost>>>
 
 }

@@ -4,7 +4,7 @@ import com.codingwithmitch.mviexample.model.BlogPost
 
 data class MainViewState(
 
-    var blogPosts: List<BlogPost> = ArrayList<BlogPost>(),
+    var blogPosts: ArrayList<BlogPost> = ArrayList<BlogPost>(),
 
     var blogPost: BlogPost? = null
 
